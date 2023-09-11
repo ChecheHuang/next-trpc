@@ -1,4 +1,6 @@
 import './globals.css'
+import { QueryProvider } from '@/components/providers/query-provider'
+import { SocketProvider } from '@/components/providers/socket-provider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
@@ -16,7 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <SocketProvider>
+          <QueryProvider>{children}</QueryProvider>
+        </SocketProvider>
+      </body>
     </html>
   )
 }
