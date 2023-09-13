@@ -5,7 +5,7 @@ dotenv.config()
 console.log(process.env.DB_URL)
 
 export default {
-  schema: './drizzle/schema/*',
+  schema: './drizzle/schema.ts',
   out: './drizzle/migration',
   driver: 'mysql2',
   dbCredentials: {

@@ -11,8 +11,11 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import * as z from 'zod'
 
 const FormSchema = z.object({
@@ -20,14 +23,41 @@ const FormSchema = z.object({
   password: z.string().min(1, '請輸入密碼'),
 })
 function AuthForm() {
+  const [isLoading, setIsLoading] = useState(false)
+  const session = useSession()
+  const router = useRouter()
+  useEffect(() => {
+    if (session?.status === 'authenticated') {
+      //  router.push('/administrator/cati')
+      console.log('已登入')
+    }
+  }, [session?.status, router])
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: 'sunnygo',
-      password: 'sunnygo',
+      name: 'name',
+      password: 'password',
     },
   })
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setIsLoading(true)
+    try {
+      const callback = await signIn('credentials', {
+        ...data,
+        redirect: false,
+      })
+      if (callback?.error) return toast.error('身分驗證失敗')
+
+      if (callback?.ok) {
+        router.push('/administrator/cati')
+      }
+    } catch (err) {
+      toast.error('登入失敗')
+    } finally {
+      setIsLoading(false)
+    }
+
     console.log(data)
   }
   return (
@@ -71,7 +101,12 @@ function AuthForm() {
             </FormItem>
           )}
         />
-        <Button variant="secondary" className="w-full " type="submit">
+        <Button
+          disabled={isLoading}
+          variant="secondary"
+          className="w-full "
+          type="submit"
+        >
           登入
         </Button>
       </form>

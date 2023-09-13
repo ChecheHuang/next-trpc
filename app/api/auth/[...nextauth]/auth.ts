@@ -1,5 +1,5 @@
 import { db } from '@/drizzle/db'
-import { admin } from '@/drizzle/schema/admin'
+import { admin } from '@/drizzle/schema'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import bcrypt from 'bcrypt'
 import { eq } from 'drizzle-orm'

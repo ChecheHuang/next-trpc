@@ -1,5 +1,5 @@
 import { db } from '@/drizzle/db'
-import { admin } from '@/drizzle/schema/admin'
+import { admin } from '@/drizzle/schema'
 import bcrypt from 'bcrypt'
 import { NextResponse } from 'next/server'
 
