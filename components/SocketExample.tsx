@@ -1,6 +1,6 @@
 'use client'
 
-import { useSocket } from '@/components/providers/socket-provider'
+import { useSocket } from '@/components/providers/socketProvider'
 import { Button } from '@/components/ui/button'
 import axios from 'axios'
 import React, { useEffect } from 'react'

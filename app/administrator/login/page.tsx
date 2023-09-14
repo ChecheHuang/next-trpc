@@ -7,7 +7,7 @@ function Login() {
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-br from-pink-200 via-pink-100 to-white">
       <h1 className="mb-10 text-2xl">鍾珮玲服務處</h1>
-      <div className="relative flex h-[400px] w-[350px] flex-col items-center rounded-3xl bg-primary ">
+      <div className="relative flex h-[400px] w-[350px] flex-col items-center rounded-3xl bg-[hsl(350,30%,49.8%)] ">
         <Image
           className="absolute -left-24 bottom-0  z-10 w-[131px]"
           src={girl}

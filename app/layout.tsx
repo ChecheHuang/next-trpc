@@ -1,7 +1,8 @@
 import './globals.css'
-import { QueryProvider } from '@/components/providers/query-provider'
-import { SocketProvider } from '@/components/providers/socket-provider'
-import ToastProvider from '@/components/providers/toast-provider'
+import { QueryProvider } from '@/components/providers/queryProvider'
+import { SocketProvider } from '@/components/providers/socketProvider'
+import { ThemeProvider } from '@/components/providers/themeProvider'
+import ToastProvider from '@/components/providers/toastProvider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
@@ -18,13 +19,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body className={inter.className}>
-        <SocketProvider>
-          <QueryProvider>
-            <ToastProvider>{children}</ToastProvider>
-          </QueryProvider>
-        </SocketProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <SocketProvider>
+            <QueryProvider>
+              <ToastProvider>{children}</ToastProvider>
+            </QueryProvider>
+          </SocketProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

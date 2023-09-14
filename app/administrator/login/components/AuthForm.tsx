@@ -50,7 +50,7 @@ function AuthForm() {
       if (callback?.error) return toast.error('身分驗證失敗')
 
       if (callback?.ok) {
-        router.push('/administrator/cati')
+        router.push('/administrator/cati/status')
       }
     } catch (err) {
       toast.error('登入失敗')
@@ -74,6 +74,7 @@ function AuthForm() {
               <FormLabel className=" font-bold">使用者</FormLabel>
               <FormControl>
                 <Input
+                  className=" bg-transparent"
                   autoComplete="name"
                   placeholder="輸入使用者"
                   {...field}
@@ -91,6 +92,7 @@ function AuthForm() {
               <FormLabel className=" font-bold">密碼</FormLabel>
               <FormControl>
                 <Input
+                  className=" bg-transparent"
                   autoComplete="current-password"
                   type="password"
                   placeholder="輸入密碼"
@@ -104,7 +106,7 @@ function AuthForm() {
         <Button
           disabled={isLoading}
           variant="secondary"
-          className="w-full "
+          className="w-full bg-[#f7deb5] "
           type="submit"
         >
           登入

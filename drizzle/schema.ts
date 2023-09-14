@@ -9,7 +9,7 @@ import {
   index,
 } from 'drizzle-orm/mysql-core'
 
-export const admin = mysqlTable('Admin', {
+export const admin = mysqlTable('admin', {
   id: int('id').autoincrement().primaryKey(),
   name: varchar('name', { length: 256 }).notNull(),
   password: varchar('password', { length: 256 }).notNull(),
@@ -17,7 +17,7 @@ export const admin = mysqlTable('Admin', {
   updatedAt: datetime('updated_at').default(sql`CURRENT_TIMESTAMP`),
 })
 
-export const campaign = mysqlTable('Campaign', {
+export const campaign = mysqlTable('campaign', {
   id: int('id').autoincrement().primaryKey(),
   code: varchar('code', { length: 256 }).unique(),
   name: varchar('name', { length: 256 }),
@@ -60,8 +60,8 @@ export const phoneTemplate = mysqlTable('phone_template', {
   id: int('id').autoincrement().primaryKey(),
   templateId: varchar('template_id', { length: 256 }).notNull(),
   templateName: varchar('template_name', { length: 256 }).notNull(),
-  name: varchar('name', { length: 256 }),
-  phone: varchar('phone', { length: 256 }),
+  name: varchar('name', { length: 256 }).notNull(),
+  phone: varchar('phone', { length: 256 }).notNull(),
   isValid: boolean('is_valid').default(true),
 
   createdAt: datetime('created_at').default(sql`CURRENT_TIMESTAMP`),
