@@ -1,9 +1,8 @@
 'use client'
 
 import { columns, TemplatePhoneColumn } from './columns'
-import { DataTable } from './data-table'
 import { Button } from '@/components/ui/button'
-// import { DataTable } from '@/components/ui/data-table'
+import { DataTable } from '@/components/ui/data-table'
 import { Heading } from '@/components/ui/heading'
 import { Separator } from '@/components/ui/separator'
 import { Plus } from 'lucide-react'
@@ -28,7 +27,6 @@ const TemplatePhoneClient: React.FC<TemplatePhoneClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-      {/* <DataTable searchKey="templateName" columns={columns} data={testData} /> */}
       <DataTable searchKey="templateName" columns={columns} data={testData} />
     </>
   )
