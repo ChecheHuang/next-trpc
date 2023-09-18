@@ -5,17 +5,24 @@ import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
 import { Heading } from '@/components/ui/heading'
 import { Separator } from '@/components/ui/separator'
+import trpcClient from '@/lib/_trpc/trpcClient'
+import trpcServer from '@/lib/_trpc/trpcServer'
 import { Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 interface TemplatePhoneClientProps {
-  data: TemplatePhoneColumn[]
+  data: Awaited<ReturnType<(typeof trpcServer)['templatePhoneRouter']['get']>>
 }
 
 const TemplatePhoneClient: React.FC<TemplatePhoneClientProps> = ({ data }) => {
-  const testData = [...data, ...data, ...data, ...data, ...data]
   const router = useRouter()
-  // console.log(data)
+
+  const { data: templatePhoneData } =
+    trpcClient.templatePhoneRouter.get.useQuery(undefined, {
+      initialData: data,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+    })
   return (
     <>
       <div className="flex items-center justify-between">
@@ -27,7 +34,11 @@ const TemplatePhoneClient: React.FC<TemplatePhoneClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey="templateName" columns={columns} data={testData} />
+      <DataTable
+        searchKey="templateName"
+        columns={columns}
+        data={templatePhoneData}
+      />
     </>
   )
 }

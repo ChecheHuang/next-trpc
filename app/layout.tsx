@@ -22,11 +22,12 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <SocketProvider>
-            <QueryProvider>
-              <ToastProvider>{children}</ToastProvider>
-            </QueryProvider>
-          </SocketProvider>
+          {/* <SocketProvider> */}
+          <QueryProvider>
+            {children}
+            <ToastProvider />
+          </QueryProvider>
+          {/* </SocketProvider> */}
         </ThemeProvider>
       </body>
     </html>
