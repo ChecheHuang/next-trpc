@@ -1,6 +1,6 @@
 'use client'
 
-import { columns, TemplatePhoneColumn } from './columns'
+import { columns } from './columns'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
 import { Heading } from '@/components/ui/heading'
@@ -10,8 +10,12 @@ import trpcServer from '@/lib/_trpc/trpcServer'
 import { Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
+type TemplatePhoneColumn = Awaited<
+  ReturnType<(typeof trpcServer)['templatePhoneRouter']['get']['query']>
+>
+
 interface TemplatePhoneClientProps {
-  data: Awaited<ReturnType<(typeof trpcServer)['templatePhoneRouter']['get']>>
+  data: TemplatePhoneColumn
 }
 
 const TemplatePhoneClient: React.FC<TemplatePhoneClientProps> = ({ data }) => {
@@ -19,6 +23,7 @@ const TemplatePhoneClient: React.FC<TemplatePhoneClientProps> = ({ data }) => {
 
   const { data: templatePhoneData } =
     trpcClient.templatePhoneRouter.get.useQuery(undefined, {
+      queryKey: ['templatePhoneRouter.get', undefined],
       initialData: data,
       refetchOnMount: false,
       refetchOnReconnect: false,
