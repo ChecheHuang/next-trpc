@@ -21,13 +21,15 @@ interface TemplatePhoneClientProps {
 const TemplatePhoneClient: React.FC<TemplatePhoneClientProps> = ({ data }) => {
   const router = useRouter()
 
-  const { data: templatePhoneData } =
-    trpcClient.templatePhoneRouter.get.useQuery(undefined, {
+  const gettemplatePhoneData = trpcClient.templatePhoneRouter.get.useQuery(
+    undefined,
+    {
       queryKey: ['templatePhoneRouter.get', undefined],
       initialData: data,
       refetchOnMount: false,
       refetchOnReconnect: false,
-    })
+    },
+  )
   return (
     <>
       <div className="flex items-center justify-between">
@@ -42,7 +44,7 @@ const TemplatePhoneClient: React.FC<TemplatePhoneClientProps> = ({ data }) => {
       <DataTable
         searchKey="templateName"
         columns={columns}
-        data={templatePhoneData}
+        data={gettemplatePhoneData.data}
       />
     </>
   )
