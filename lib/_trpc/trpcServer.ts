@@ -11,9 +11,9 @@ const trpcServer = createTRPCNextAppDirServer<typeof appRouter>({
     return {
       transformer: SuperJSON,
       links: [
-        loggerLink({
-          enabled: (op) => true,
-        }),
+        // loggerLink({
+        //   enabled: (op) => true,
+        // }),
         nextCacheLink({
           revalidate: 1,
           router: appRouter,
@@ -32,4 +32,5 @@ const trpcServer = createTRPCNextAppDirServer<typeof appRouter>({
     }
   },
 })
+
 export default trpcServer

@@ -1,3 +1,4 @@
+import { fakerZH_TW } from '@faker-js/faker'
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 
@@ -8,30 +9,34 @@ const reset = async () => {
   await prisma.campaign.deleteMany()
   await prisma.name_list.deleteMany()
   await prisma.phone_template.deleteMany()
-  console.log('reset done')
+  await prisma.$queryRaw`ALTER TABLE phone_template AUTO_INCREMENT = 1;`
 }
 const phoneTemplateSeed = async () => {
+  const idLength = 12
+  const dataRandomLength = 100
+
+  const templateData = []
+  const ids = Array(idLength)
+    .fill('')
+    .map((_, index) => (index + 1).toString())
+
+  for (const template_id of ids) {
+    const idDataLength = Math.floor(Math.random() * dataRandomLength) + 1
+    const template_name = fakerZH_TW.company.name()
+    for (let i = 0; i < idDataLength; i++) {
+      const name = fakerZH_TW.person.fullName()
+      const phone = fakerZH_TW.phone.number()
+      templateData.push({
+        template_id,
+        template_name,
+        name,
+        phone,
+      })
+    }
+  }
+
   await prisma.phone_template.createMany({
-    data: [
-      {
-        template_id: '1',
-        template_name: 'firstTemplate',
-        name: 'firstName',
-        phone: '0900000001',
-      },
-      {
-        template_id: '1',
-        template_name: 'firstTemplate',
-        name: 'secondName',
-        phone: '0900000002',
-      },
-      {
-        template_id: '2',
-        template_name: 'secondTemplate',
-        name: 'thirdName',
-        phone: '0900000003',
-      },
-    ],
+    data: templateData,
   })
   console.log('phoneTemplateSeed done')
 }
@@ -49,8 +54,9 @@ const adminSeed = async () => {
 }
 
 async function main() {
-  console.log('Start seeding ...')
   await reset()
+  console.log('reset done')
+  console.log('Start seeding ...')
   await adminSeed()
   await phoneTemplateSeed()
   console.log('Seeding finished ...')

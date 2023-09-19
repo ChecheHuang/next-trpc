@@ -1,7 +1,14 @@
 import React from 'react'
 
-function TemplatePhoneById() {
-  return <div>TemplatePhoneById</div>
+interface TemplatePhoneByIdPageProps {
+  params: {
+    templateId: string
+  }
+}
+function TemplatePhoneByIdPage({
+  params: { templateId },
+}: TemplatePhoneByIdPageProps) {
+  return <div>{templateId}</div>
 }
 
-export default TemplatePhoneById
+export default TemplatePhoneByIdPage
